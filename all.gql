@@ -1,0 +1,35 @@
+query getAll {
+  species: pokemon_v2_pokemonspecies(order_by: { id: asc }) {
+    evolvesFrom: evolves_from_species_id
+    id
+    pokemon: pokemon_v2_pokemons(order_by: { id: asc }, where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging)"}}) {
+      id
+      name
+      forms: pokemon_v2_pokemonforms(where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging)"}}) {
+        name: form_name
+      }
+      moves: pokemon_v2_pokemonmoves(distinct_on: move_id) {
+        id: move_id
+      }
+      types: pokemon_v2_pokemontypes(distinct_on: type_id) {
+        id: type_id
+      }
+      abilities: pokemon_v2_pokemonabilities(distinct_on: ability_id) {
+        id: ability_id
+      }
+    }
+  }
+  moves: pokemon_v2_move {
+    id
+    name
+    type: type_id
+  }
+  abilities: pokemon_v2_ability {
+    id
+    name
+  }
+  types: pokemon_v2_type {
+    id
+    name
+  }
+}
