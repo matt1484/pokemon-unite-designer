@@ -67,7 +67,7 @@
                   <b-img 
                     width="30px" 
                     height="30px" 
-                    :src="`/img/${move.move.type}.webp`" 
+                    :src="`https://cdn.statically.io/gh/matt1484/pokemon-unite-designer/master/public/img/${move.move.type}.webp`" 
                   /> 
                   {{ move.move.name }}
                 </div>
@@ -84,7 +84,7 @@
                     <b-img 
                       width="30px" 
                       height="30px" 
-                      :src="`/img/${option.move.type}.webp`" 
+                      :src="`https://cdn.statically.io/gh/matt1484/pokemon-unite-designer/master/public/img/${option.move.type}.webp`" 
                     /> 
                     {{ option.move.name }}
                   </div>
