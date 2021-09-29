@@ -19,10 +19,10 @@
         </div>
         <div class="btn-container">
           <div>
-            <b-btn v-for="type in this.pokemon.types.filter(x => x)" :key="type" disabled pill :class="'type-btn ' + type" >{{type}}</b-btn>
+            <b-btn v-for="type in this.pokemon.types.filter(x => x)" :key="type" disabled pill :class="'type-btn ' + type" style="opacity: 1 !important">{{type}}</b-btn>
           </div>
           <div>
-            <b-btn disabled pill :class="'archetype-btn ' + archetype.split('/').slice(-1)[0].toLowerCase()">{{ archetype }}</b-btn>
+            <b-btn disabled pill :class="'archetype-btn ' + archetype.split('/').slice(-1)[0].toLowerCase()" style="opacity: 1 !important">{{ archetype }}</b-btn>
           </div>
         </div>
         <div class="evolutions-container" :style="{'grid-template-columns': '1fr '.repeat((this.pokemon.evolutions.length || 1)*3 -1)}">
@@ -270,7 +270,7 @@ export default {
   name: 'App',
   data: () => { 
     return {
-      archetypeOptions: ['Attacker', 'Speedster', 'Defender', 'Support'].reduce(
+      archetypeOptions: ['Attacker', 'Speedster', 'Defender', 'Support', 'All-rounder'].reduce(
         (x, y) => {
           return x.concat(['Melee', 'Ranged'].map(
             (z) => {
@@ -481,6 +481,10 @@ export default {
 
 .support {
   background: rgb(222, 176, 80) !important;
+}
+
+.all-rounder {
+  background: rgb(82, 44, 166) !important;
 }
 
 .none {
