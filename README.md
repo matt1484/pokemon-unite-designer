@@ -16,7 +16,7 @@ yarn serve
 
 ### Compiles and minifies for github pages
 ```
-yarn build --dest pages
+yarn build --dest docs
 ```
 
 ### Lints and fixes files
