@@ -4,6 +4,8 @@ This project is for building custom designs for pokemon that are not currently i
 
 It uses PokeAPI/Smogon data and images with heavy usage of statically.io for caching/serving everything
 
+The UI is hosted via github pages at `https://matt1484.github.io/pokemon-unite-designer/`
+
 ## Project setup
 ```
 yarn install
