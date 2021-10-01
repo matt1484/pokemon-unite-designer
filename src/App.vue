@@ -401,6 +401,11 @@ export default {
           mv.move.name = ''
           mv.move.type = ''
           mv.description = ''
+          mv.options.forEach((opt) => {
+            opt.move.name = ''
+            opt.move.type = ''
+            opt.description = ''
+          })
         })
         this.$refs.design.querySelectorAll("img").forEach((img) => {
           img.onerror = () => {

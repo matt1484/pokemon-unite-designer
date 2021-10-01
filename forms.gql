@@ -1,0 +1,15 @@
+query getAllForms {
+  species: pokemon_v2_pokemonspecies(where: {is_legendary: {_eq: false}}) {
+    name
+    pokemon: pokemon_v2_pokemons(where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging|sunshine|antique|hangry|dada|zen|fancy|poke-ball)"}}) {
+      id
+      name
+      default: is_default
+      forms: pokemon_v2_pokemonforms(where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging|sunshine|antique|hangry|dada|zen|fancy|poke-ball)"}}) {
+        name
+        formName: form_name
+        default: is_default
+      }
+    }
+  }
+}

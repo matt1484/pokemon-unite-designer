@@ -1,11 +1,12 @@
+# this may be relevant again when Gen 8 is completed in PokeAPI 
 query getAll {
   species: pokemon_v2_pokemonspecies(order_by: { id: asc }) {
     evolvesFrom: evolves_from_species_id
     id
-    pokemon: pokemon_v2_pokemons(order_by: { id: asc }, where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging)"}}) {
+    pokemon: pokemon_v2_pokemons(order_by: { id: asc }, where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging|sunshine|antique|hangry|dada|zen|fancy|poke-ball)"}}) {
       id
       name
-      forms: pokemon_v2_pokemonforms(where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging)"}}) {
+      forms: pokemon_v2_pokemonforms(where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging|sunshine|antique|hangry|dada|zen|fancy|poke-ball)"}}) {
         name: form_name
       }
       moves: pokemon_v2_pokemonmoves(distinct_on: move_id) {
