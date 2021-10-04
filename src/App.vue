@@ -600,6 +600,7 @@ export default {
   font-size: 80px;
   vertical-align: top;
   text-transform:capitalize;
+  width: 500px;
 }
 
 .card {
