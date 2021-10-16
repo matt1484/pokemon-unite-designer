@@ -109,6 +109,7 @@
             </template>
           </template>
         </div>
+        <div style="margin-left:430px">made with: https://matt1484.github.io/pokemon-unite-designer/</div>
       </div>
       <b-container id="designer">
         <b-form @submit="previewDesign">
@@ -392,7 +393,7 @@ export default {
         height: 1000, 
         windowWidth: 1300,
         windowHeight: 1000,
-        scale: 2,
+        scale: 1.5,
         onclone: (document) => {
           document.getElementById('design').style.display = 'block'
           if (window.innerWidth < 400) {
@@ -725,7 +726,7 @@ body {
 
 .moves {
   display: grid;
-  margin: 30px 40px;
+  margin: 30px 40px 20px 40px;
   gap: 30px 7px;
   grid-template-columns: 1fr 24px 1fr 24px 1fr;
   grid-template-rows: 160px 160px;
