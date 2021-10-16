@@ -61,9 +61,6 @@ fs.readFile(__dirname + '/all.gql', 'utf8' , (err, data) => {
           }
           allSpecies[id] = {children: (allSpecies[id] || {}).children || 0, index: [index, subIndex], parent: parentId, form: form.name}
           if (species.evolvesFrom !== null) {
-            if (species.evolvesFrom === 412) {
-              console.log(id, parentId, allSpecies[parentId], getBySpecies(allSpecies[id]).name)
-            }
             if (!allSpecies[parentId]){
               parentId = String(species.evolvesFrom) 
               allSpecies[id].parent = parentId

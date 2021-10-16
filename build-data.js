@@ -43,7 +43,7 @@ axios.get('https://cdn.statically.io/gh/smogon/pokemon-showdown/master/data/poke
           nameToPkmn[pkmn.name] = pkmn
         })
 
-        const nameExcludes = /(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging|sunshine|antique|hangry|dada|zen|fancy|pokeball)/
+        const nameExcludes = /(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging|sunshine|antique|hangry|dada|zen|fancy|pokeball|poke-ball|shock|chill|douse|burn)/
         const allPokemon = []
 
         function fixName(name) {
@@ -53,7 +53,7 @@ axios.get('https://cdn.statically.io/gh/smogon/pokemon-showdown/master/data/poke
           if (
             pkmn.evos || pkmn.num <= 0 || !idConversionMap[normalize(nameToPkmn[pkmn.name].id)] || 
             ((pkmn.tags || []).concat((nameToPkmn[pkmn.baseSpecies || ''] || {}).tags || [])).join('').toLowerCase().match(/legendary/) || 
-            (pkmn.forme || '').toLowerCase().match(nameExcludes)
+            (pkmn.forme || '').toLowerCase().match(nameExcludes) || (pkmn.baseSpecies || '').toLowerCase().match(/arceus/)
           ) {
             return
           }

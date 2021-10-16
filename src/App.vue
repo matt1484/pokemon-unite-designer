@@ -18,30 +18,10 @@
           <div class="title">{{ this.pokemon.name }}</div>
         </div>
         <div class="btn-container">
-          <div>
-            <b-btn v-for="type in this.pokemon.types.filter(x => x)" :key="type" disabled pill :class="'type-btn ' + type" style="opacity: 1 !important">{{type}}</b-btn>
-          </div>
-          <div>
-            <b-btn disabled pill :class="'archetype-btn ' + archetype.split('/').slice(-1)[0].toLowerCase()" style="opacity: 1 !important">{{ archetype }}</b-btn>
-          </div>
+          <b-btn v-for="type in this.pokemon.types.filter(x => x)" :key="type" disabled pill :class="'type-btn ' + type" style="opacity: 1 !important">{{type}}</b-btn>
+          <b-btn disabled pill :class="'archetype-btn ' + archetype.split('/').slice(-1)[0].toLowerCase()" style="opacity: 1 !important">{{ archetype }}</b-btn>
         </div>
-        <div class="evolutions-container" :style="{'grid-template-columns': '1fr '.repeat((this.pokemon.evolutions.length || 1)*3 -1)}">
-          <template v-for="(evol, idx) in this.pokemon.evolutions">
-            <div class="evolution" :key="evol.name" v-if="pokemon.evolutions.length > 1">
-              <div :class="'circle ' + pokemon.types[0]">
-                <b-img center :src="imageUrl + evol.id + '.png'" width="70px" height="70px" />   
-              </div>
-              <div class="text-center evolution-text">{{evol.name}}</div>
-            </div>
-            <div class="text-center" :key="evol.name + 'level'" v-if="idx < evolutions.length" style="margin-bottom: 40px"> 
-              <div>Level {{ evolutions[idx] }}</div>
-              <div>
-                <b-icon icon="arrow-right-square-fill" />
-              </div>
-            </div>
-          </template>
-        </div>
-        <div class="basic-ability">
+        <div class="info-grid">
           <b-card :header-class="pokemon.types[0]">
             <template v-slot:header>
               <div style="">
@@ -50,6 +30,32 @@
             </template>
             {{ basicDescription }}
           </b-card>
+          <div class="stats-container">
+            <b-card v-for="(value, stat) in stats" :key="stat">
+              <div class="stat">
+                <div style="text-transform: capitalize">{{ stat }}:</div>
+                <div style="color: rgb(245, 221, 66)">
+                  <b-icon v-for="x in 5" :key="'offense' + x" :icon="value > x? 'star-fill': (value + 1 - x > 0? 'star-half': 'star')" style="margin-right: 5px" />
+                </div>
+              </div>
+            </b-card>
+          </div>
+          <div v-if="this.pokemon.evolutions.length > 1" class="evolutions-container" :style="{'grid-template-columns': '1fr '.repeat((this.pokemon.evolutions.length || 1)*3 -1)}">
+            <template v-for="(evol, idx) in this.pokemon.evolutions">
+              <div class="evolution" :key="evol.name" v-if="pokemon.evolutions.length > 1">
+                <div :class="'circle ' + pokemon.types[0]">
+                  <b-img center :src="imageUrl + evol.id + '.png'" width="70px" height="70px" />   
+                </div>
+                <div class="text-center evolution-text">{{evol.name}}</div>
+              </div>
+              <div class="text-center" :key="evol.name + 'level'" v-if="idx < evolutions.length" style="margin-bottom: 50px"> 
+                <div>Lvl. {{ evolutions[idx] }}</div>
+                <div>
+                  <b-icon icon="arrow-right-square-fill" />
+                </div>
+              </div>
+            </template>
+          </div>
           <b-card :header-class="pokemon.types[0]">
             <template v-slot:header>
               <div style="">
@@ -57,6 +63,14 @@
               </div>
             </template>
             {{ ability.description }}
+          </b-card>
+          <b-card :style="evolutions.length < 1? {'grid-row':'1 / span 2','grid-column':'3','margin':'75px 0'}: {}" :header-class="pokemon.types[0]">
+            <template v-slot:header>
+              <div style="">
+                <b-icon icon="star-fill" /> Unite Move: {{ uniteMove.name }}
+              </div>
+            </template>
+            {{ uniteMove.description }}
           </b-card>
         </div>
         <div class="moves">
@@ -91,19 +105,9 @@
                 </template>
                 {{ option.description }}
               </b-card>
-              <div :key="'or-' + idx + '-' + oidx" v-if="oidx + 1 != move.options.length" style="font-size:16px; margin-top:70px; font-weight:500">OR</div>
+              <div :key="'or-' + idx + '-' + oidx" v-if="oidx + 1 != move.options.length" style="font-size:20px; margin-top:70px">OR</div>
             </template>
           </template>
-        </div>
-        <div style="margin: 0 300px;">
-          <b-card style="height: 120px;" :header-class="pokemon.types[0]">
-            <template v-slot:header>
-              <div style="">
-                <b-icon icon="star-fill" /> Unite Move: {{ uniteMove.name }}
-              </div>
-            </template>
-            {{ uniteMove.description }}
-          </b-card>
         </div>
       </div>
       <b-container id="designer">
@@ -146,13 +150,24 @@
                 :value="evolutions"
               ></b-form-select>
             </div>
+            <hr>
+            <div v-for="(value, stat) in stats" :key="stat + 'picker'">
+              <h5 style="text-transform: capitalize">{{stat}} Rating</h5>
+              <b-form-select
+                v-model="$data.stats[stat]"
+                :options="[0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]"
+                required
+                :value="value"
+              ></b-form-select>
+            </div>
+            <hr>
             <div>
               <h5>Basic attack description</h5>
               <b-form-textarea
                 v-model="basicDescription"
                 placeholder="Basic Attack description goes here..."
                 no-resize
-                maxlength="300"
+                maxlength="280"
               ></b-form-textarea>
             </div>
             <hr>
@@ -172,7 +187,7 @@
                 v-model="ability.description"
                 placeholder="Ability description goes here..."
                 no-resize
-                maxlength="300"
+                maxlength="280"
               ></b-form-textarea>
             </div>
             <hr>
@@ -197,7 +212,7 @@
                   v-model="move.description"
                   placeholder="Move description goes here..."
                   no-resize
-                  maxlength="300"
+                  maxlength="280"
                 ></b-form-textarea>
                 <hr>
               </div>
@@ -222,7 +237,7 @@
                     v-model="move.description"
                     placeholder="Move description goes here..."
                     no-resize
-                    maxlength="300"
+                    maxlength="280"
                   ></b-form-textarea>
                   <hr>
                 </div>
@@ -244,7 +259,7 @@
                 v-model="uniteMove.description"
                 placeholder="Unite move description..."
                 no-resize
-                maxlength="300"
+                maxlength="280"
               ></b-form-textarea>
             </div>
           </div>
@@ -288,7 +303,7 @@ export default {
         { text: 'Lvl 6 / Lvl 10', value: [6, 10] },
       ],
       pokemonOptions: [],
-      imageUrl: 'https://cdn.statically.io/gh/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/',
+      imageUrl: 'https://cdn.statically.io/gh/PokeAPI/sprites/master/sprites/pokemon/other/home/',
       pokemon: {
         id: 0,
         name: '',
@@ -346,6 +361,13 @@ export default {
           description: '',
         }]
       }],
+      stats: {
+        offense: 3,
+        endurance: 3,
+        mobility: 3,
+        scoring: 3,
+        support: 3,
+      },
     } 
   },
   created() {
@@ -366,10 +388,11 @@ export default {
       html2canvas(document.getElementById('design'), { 
         useCORS: true, 
         logging : true, 
-        width: 1200, 
+        width: 1300, 
         height: 1000, 
-        windowWidth: 1200,
+        windowWidth: 1300,
         windowHeight: 1000,
+        scale: 4,
         onclone: (document) => {
           document.getElementById('design').style.display = 'block'
           if (window.innerWidth < 400) {
@@ -394,7 +417,7 @@ export default {
         resp.data.moves = resp.data.moves.map((mv) => { return { value: mv, text: mv.name }})
         this.pokemon = resp.data
         this.archetype = ''
-        this.evolutions = this.pokemon.evolutions.length > 1? [4, 8]: []
+        this.evolutions = [4, 8].slice(0, this.pokemon.evolutions.length -1)
         this.ability.name = this.pokemon.abilities[0].value
         this.ability.description = ''
         this.moves.forEach((mv) => {
@@ -407,12 +430,19 @@ export default {
             opt.description = ''
           })
         })
+        this.stats = {
+          offense: 3,
+          endurance: 3,
+          mobility: 3,
+          scoring: 3,
+          support: 3,
+        }
         this.$refs.design.querySelectorAll("img").forEach((img) => {
           img.onerror = () => {
             if (img.src.match(/other\/official-artwork\//)) {
               this.$refs.design.querySelectorAll("img").forEach((img) => {
                 if (img.src.match(/other\/official-artwork\//)) {
-                  img.src = img.src.replace('other/official-artwork/', '')
+                  img.src = img.src.replace('other/home/', '')
                 }
               })
             }
@@ -427,6 +457,11 @@ export default {
 
 <style>
 
+body {
+  font-weight: 600 !important;
+  font-family: 'Exo 2' !important;
+}
+
 .profile-image {
   width: 200px;
   height:200px;
@@ -437,8 +472,8 @@ export default {
 }
 
 .card-header {
-  background: rgb(108, 117, 125) !important;
-  font-size: 16px !important;
+  background: rgb(155, 161, 167) !important;
+  font-size: 20px !important;
   color: white;
   padding: 8px 12px !important;
 }
@@ -450,22 +485,24 @@ export default {
 
 .circle {
   border-radius: 50%;
-  border: 2px solid black;
+  border: 3px solid black;
   text-align: center;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.12), 0 3px 6px rgba(0,0,0,0.24);
 }
 
 .type-btn {
   width: 90px;
-  margin-right:6px;
+  margin-right: 30px;
   opacity: 100% !important;
-  border: 2px solid black !important;
+  border: 3px solid black !important;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.12), 0 3px 6px rgba(0,0,0,0.24);
 }
 
 .archetype-btn {
   width: 190px;
   opacity: 100% !important;
-  border: 2px solid black !important;
-  margin-top:10px;
+  border: 3px solid black !important;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.12), 0 3px 6px rgba(0,0,0,0.24);
 }
 
 .white {
@@ -588,8 +625,8 @@ export default {
 
 .banner {
   height: 140px;
-  border-bottom: 2px solid black;
-  padding-top: 30px;
+  border-bottom: 3px solid black;
+  padding-top: 25px;
   padding-left: 40px;
 }
 
@@ -600,41 +637,55 @@ export default {
   font-size: 80px;
   vertical-align: top;
   text-transform:capitalize;
-  width: 500px;
+  width: 1000px;
 }
 
 .card {
-  border-radius: 22px !important;
+  border-radius: 16px !important;
   border-color: black !important;
-  border-width: 2px !important;
+  border-width: 3px !important;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.12), 0 3px 6px rgba(0,0,0,0.24);
 }
 
 .card-header {
   border-color: black !important;
-  border-radius: 20px 20px 0 0 !important;
+  border-radius: 12px 12px 0 0 !important;
   font-size: 20px;
-  border-width: 2px !important;
+  border-width: 3px !important;
 }
 
 .btn-container {
-  padding-top:10px;
+  padding-top: 15px;
   padding-left: 265px;
   display: inline-block;
-  width: 600px;
+  width: 900px;
   vertical-align: top;
 }
 
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px; 
+  grid-row: span 2;
+}
+
+.stat {
+  font-size: 20px;
+  display:grid;
+  grid-template-columns: 120px 1fr;
+}
+
 #design {
-  height:1000px;
-  width: 1200px;
+  height: 1000px;
+  width: 1300px;
   opacity: 1.0;
-  background: lightgray;
+  background: rgb(238, 236, 236);
   display: none;
 }
 
 .evolutions-container {
-  width: 600px;
-  padding-right:30px;
+  margin-top: 10px;
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
@@ -661,19 +712,22 @@ export default {
   margin-left: calc(50% - 40px);
 }
 
-.basic-ability {
-  margin: 0 40px; 
-  gap: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 120px;
+.info-grid {
+  margin-top: 60px; 
+  display: grid; 
+  width: 100%; 
+  grid-template-rows: 145px 145px; 
+  grid-template-columns: 450px 280px 450px; 
+  gap: 30px 20px; 
+  padding-left: 40px; 
+  padding-right:40px;
 }
 
 .moves {
   display: grid;
-  margin: 40px;
+  margin: 30px 40px;
   gap: 30px 7px;
-  grid-template-columns: 1fr 20px 1fr 20px 1fr;
+  grid-template-columns: 1fr 24px 1fr 24px 1fr;
   grid-template-rows: 160px 160px;
 }
 
