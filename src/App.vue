@@ -392,7 +392,7 @@ export default {
         height: 1000, 
         windowWidth: 1300,
         windowHeight: 1000,
-        scale: 4,
+        scale: 2,
         onclone: (document) => {
           document.getElementById('design').style.display = 'block'
           if (window.innerWidth < 400) {
