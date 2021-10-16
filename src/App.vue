@@ -35,7 +35,7 @@
               <div class="stat">
                 <div style="text-transform: capitalize">{{ stat }}:</div>
                 <div style="color: rgb(245, 221, 66)">
-                  <b-icon v-for="x in 5" :key="'offense' + x" :icon="value > x? 'star-fill': (value + 1 - x > 0? 'star-half': 'star')" style="margin-right: 5px" />
+                  <b-icon v-for="x in 5" :key="'offense' + x" :icon="value >= x? 'star-fill': (value + 1 - x > 0? 'star-half': 'star')" style="margin-right: 5px" />
                 </div>
               </div>
             </b-card>
@@ -393,7 +393,6 @@ export default {
         height: 1000, 
         windowWidth: 1300,
         windowHeight: 1000,
-        scale: 1.5,
         onclone: (document) => {
           document.getElementById('design').style.display = 'block'
           if (window.innerWidth < 400) {
