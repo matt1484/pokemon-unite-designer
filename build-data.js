@@ -19,6 +19,8 @@ axios.get('https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data
         }
 
         const idConversionMap = {}
+        const idToMoves = {}
+
         all.species.forEach((spec) => {
           spec.pokemon.forEach((pkmn) => {
             pkmn.forms.forEach((form) => {
@@ -32,6 +34,12 @@ axios.get('https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data
             if (pkmn.default && !idConversionMap[normalize(spec.name)]) {
               idConversionMap[normalize(spec.name)] = pkmn.id
             }
+            // console.log(pkmn.moves);
+            idToMoves[pkmn.id] = pkmn.moves.filter((move) => { 
+              return move && move.move && move.move.name
+            }).map((move) => {
+              return move.move.name.replaceAll('-', '').replaceAll(' ', '').replaceAll('_', '')
+            })
           })
         })
 
@@ -88,11 +96,17 @@ axios.get('https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data
           allPokemon.push({
             id: evolutions[evolutions.length - 1].id,
             name: fixName(pkmn.name),
-            moves: Array.from(new Set(Object.keys(
-              (Learnsets[nameToPkmn[pkmn.name].id] || {}).learnset || {}
-            ).concat(Object.keys(
-              (Learnsets[(nameToPkmn[pkmn.baseSpecies] || {}).id] || {}).learnset || {}
-            )))).map((mv) => {
+            moves: Array.from(
+              new Set(
+                Object.keys(
+                  (Learnsets[nameToPkmn[pkmn.name].id] || {}).learnset || {}
+                ).concat(
+                  Object.keys(
+                    (Learnsets[(nameToPkmn[pkmn.baseSpecies] || {}).id] || {}).learnset || {}
+                  )
+                ).concat(...evolutions.map((e) => idToMoves[e.id]))
+              )
+            ).filter((mv) => Moves[mv] !== undefined).map((mv) => {
               return {name: Moves[mv].name, type: Moves[mv].type.toLowerCase()}
             }).sort((x, y) => { return strSort(x.name, y.name) }),
             types: pkmn.types.map((t) => { return t.toLowerCase() }),

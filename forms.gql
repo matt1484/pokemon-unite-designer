@@ -10,6 +10,11 @@ query getAllForms {
         formName: form_name
         default: is_default
       }
+      moves: pokemon_v2_pokemonmoves(distinct_on: [move_id]) {
+        move: pokemon_v2_move {
+          name
+        }
+      }
     }
   }
 }
