@@ -127,7 +127,13 @@
                       <v-col>
                         <div style="width: 60vw; height: 33.75vw">
                           <v-img v-if="builtImage" contain :src="builtImage" />
-                          <v-progress-circular class="full-width full-height" v-else indeterminate color="primary" />
+                          <v-row v-else>
+                            <v-spacer />
+                            <v-col cols="auto">
+                              <v-progress-circular size="200" width="15" indeterminate color="primary" />
+                            </v-col>
+                            <v-spacer />
+                          </v-row>
                         </div>
                       </v-col>
                       <v-spacer />
