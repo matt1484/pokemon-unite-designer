@@ -277,7 +277,7 @@
                     </v-avatar>
                     <div style="margin-top: -8px">
                       <h3 style="padding: none !important">{{moves[0].move.name}}</h3>
-                      <div style="height: 16px; margin-top: -8px;">
+                      <div style="height: 20px; margin-top: -8px; margin-bottom: 4px !important">
                         <v-chip color="primary" class="mr-2" label x-small style="height: 20px">
                           <div style="font-size: 14px !important">
                             <v-icon small class="pb-1">{{icons.mdiTimerOutline}}</v-icon>
@@ -386,7 +386,7 @@
                           </v-avatar>
                           <div style="margin-top: -8px">
                             <h3 style="padding: none !important">{{option.move.name}}</h3>
-                            <div style="height: 16px; margin-top: -8px">
+                            <div style="height: 20px; margin-top: -8px; margin-bottom: 4px !important">
                               <v-chip color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon small class="pb-1">{{icons.mdiTimerOutline}}</v-icon>
@@ -465,7 +465,7 @@
                     </v-avatar>
                     <div style="margin-top: -8px">
                       <h3 style="padding: none !important">{{moves[1].move.name}}</h3>
-                      <div style="height: 16px; margin-top: -8px">
+                      <div style="height: 20px; margin-top: -8px; margin-bottom: 4px !important">
                         <v-chip color="primary" class="mr-2" label x-small style="height: 20px">
                           <div style="font-size: 14px !important">
                             <v-icon small class="pb-1">{{icons.mdiTimerOutline}}</v-icon>
@@ -574,8 +574,8 @@
                             <img v-if="option.move.type" :src="`https://cdn.statically.io/gh/matt1484/pokemon-unite-designer/master/public/img/${option.move.type}.webp`" />
                           </v-avatar>
                           <div style="margin-top: -8px">
-                            {{option.move.name}}
-                            <div style="height: 16px; margin-top: -8px">
+                            <h3 style="padding: none !important">{{option.move.name}}</h3>
+                            <div style="height: 20px; margin-top: -8px; margin-bottom: 4px !important">
                               <v-chip color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon small class="pb-1">{{icons.mdiTimerOutline}}</v-icon>
@@ -824,13 +824,6 @@ export default {
       }).then((canvas) => {
         this.builtImage = canvas.toDataURL('image/jpeg')
       })
-    },
-    downloadDesign() {
-      let a = document.createElement('a')
-      a.href = document.getElementById('preview').src.replace('image/jpeg', 'image/octet-stream')
-      a.download = `${this.pokemon.name}-build.jpg`
-      a.click()
-      a.remove()
     },
     onPokemonSelect() {
       axios.get(`https://cdn.statically.io/gh/matt1484/pokemon-unite-designer/master/public/data/pokemon/${this.pokemon.id}.json`).then((resp) => {
@@ -1117,5 +1110,8 @@ background: rgb(240, 240, 240) 0 292px !important;
 .option-toolbar > .v-toolbar__content .v-toolbar__content:first-of-type {
   border-top-left-radius: 18px;
   padding-left: 4px !important;
+}
+h3 {
+  margin-bottom: 4px !important;
 }
 </style>
