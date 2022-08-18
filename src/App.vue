@@ -860,8 +860,8 @@ export default {
           support: 3,
         }
       })
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
@@ -879,7 +879,7 @@ export default {
   height: 900px;
   width: 1600px;
   opacity: 1.0;
-  /* display: none; */
+  display: none;
   /* font-weight: 600 !important; */
 }
 .none {

@@ -1,5 +1,5 @@
 query getAllForms {
-  species: pokemon_v2_pokemonspecies(where: {is_legendary: {_eq: false}}) {
+  species: pokemon_v2_pokemonspecies {
     name
     pokemon: pokemon_v2_pokemons(where: {name: {_nregex: "-(mega|gmax|busted|totem|original|eternal|phony|gulping|gorging|sunshine|antique|hangry|dada|zen|fancy|poke-ball|shock|chill|douse|burn)"}}) {
       id

@@ -3,11 +3,11 @@ const fs = require('fs')
 const gql = require('graphql-request')
 const requireFromString = require('require-from-string')
 
-axios.get('https://cdn.statically.io/gh/smogon/pokemon-showdown/master/data/pokedex.ts').then((resp) => {
+axios.get('https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data/pokedex.ts').then((resp) => {
   const { Pokedex } = requireFromString(resp.data.replace(/^[^=]+=\s+/, 'exports.Pokedex = '))
-  axios.get('https://cdn.statically.io/gh/smogon/pokemon-showdown/master/data/moves.ts').then((resp) => {
+  axios.get('https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data/moves.ts').then((resp) => {
     const { Moves } = requireFromString(resp.data.replace(/^[^=]+=\s+/, 'exports.Moves = ').replace(/\t\t\t.*/g, ''))
-    axios.get('https://cdn.statically.io/gh/smogon/pokemon-showdown/master/data/learnsets.ts').then((resp) => {
+    axios.get('https://raw.githubusercontent.com/smogon/pokemon-showdown/master/data/learnsets.ts').then((resp) => {
       const { Learnsets } = requireFromString(resp.data.replace(/^[^=]+=\s+/, 'exports.Learnsets = '))
       gql.request('https://beta.pokeapi.co/graphql/v1beta', fs.readFileSync('./forms.gql').toString()).then((all) => {
         function strSort(x, y) {
@@ -51,9 +51,10 @@ axios.get('https://cdn.statically.io/gh/smogon/pokemon-showdown/master/data/poke
         }
         Object.values(Pokedex).forEach((pkmn) => {
           if (
-            pkmn.evos || pkmn.num <= 0 || !idConversionMap[normalize(nameToPkmn[pkmn.name].id)] || 
-            ((pkmn.tags || []).concat((nameToPkmn[pkmn.baseSpecies || ''] || {}).tags || [])).join('').toLowerCase().match(/legendary/) || 
-            (pkmn.forme || '').toLowerCase().match(nameExcludes) || pkmn.name.toLowerCase().match(/arceus/)
+            // pkmn.evos || 
+            pkmn.num <= 0 || !idConversionMap[normalize(nameToPkmn[pkmn.name].id)] || 
+            // ((pkmn.tags || []).concat((nameToPkmn[pkmn.baseSpecies || ''] || {}).tags || [])).join('').toLowerCase().match(/legendary/) || 
+            (pkmn.forme || '').toLowerCase().match(nameExcludes) //|| pkmn.name.toLowerCase().match(/arceus/)
           ) {
             return
           }
