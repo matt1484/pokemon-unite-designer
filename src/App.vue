@@ -46,7 +46,7 @@
           <v-divider class="my-3" />
           <v-row>
             <v-col>
-              <v-textarea label="Basic Attack Description" v-model="basicDescription" dense outlined no-resize :counter="280" maxlength="280" />
+              <v-textarea label="Basic Attack Description" v-model="basicDescription" dense outlined no-resize :counter="370" maxlength="370" />
             </v-col>
           </v-row>
           <v-divider class="my-3" />
@@ -77,7 +77,7 @@
             </v-row>
             <v-row dense :key="`move-${index}-desc`">
               <v-col>
-                <v-textarea :label="`Move ${index + 1} Description`" v-model="m.description" dense no-resize outlined :counter="280" maxlength="280" />
+                <v-textarea :label="`Move ${index + 1} Description`" v-model="m.description" dense no-resize outlined :counter="370" maxlength="370" />
               </v-col>
             </v-row>
             <template v-for="(o, i) in m.options">
@@ -96,7 +96,7 @@
               </v-row>
               <v-row dense :key="`move-${index}-option-${i}-desc`">
                 <v-col>
-                  <v-textarea :label="`Move ${index+1} Option ${i+1} Description`" v-model="o.description" dense no-resize outlined :counter="280" maxlength="280" />
+                  <v-textarea :label="`Move ${index+1} Option ${i+1} Description`" v-model="o.description" dense no-resize outlined :counter="370" maxlength="370" />
                 </v-col>
               </v-row>
             </template>
@@ -109,7 +109,7 @@
           </v-row>
           <v-row dense>
             <v-col>
-              <v-textarea label="Unite Move Description" v-model="uniteMove.description" dense no-resize outlined :counter="280" maxlength="280" />
+              <v-textarea label="Unite Move Description" v-model="uniteMove.description" dense no-resize outlined :counter="370" maxlength="370" />
             </v-col>
           </v-row>
           <v-divider class="my-3" />
@@ -284,6 +284,18 @@
                             {{moves[0].cooldown}}s
                           </div>
                         </v-chip>
+                        <v-chip v-if="moves[0].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
+                          <div style="font-size: 14px !important">
+                            <v-icon x-small class="pb-1">{{icons.mdiHandFrontLeftOutline}}</v-icon>
+                            Melee
+                          </div>
+                        </v-chip>
+                        <v-chip v-if="moves[0].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
+                          <div style="font-size: 14px !important">
+                            <v-icon x-small class="pb-1">{{icons.mdiBowArrow}}</v-icon>
+                            Ranged
+                          </div>
+                        </v-chip>
                         <v-chip v-if="moves[0].tags.includes('Area')" color="primary" class="mr-2" label x-small style="height: 20px">
                           <div style="font-size: 14px !important">
                             <v-icon x-small class="pb-1">{{icons.mdiArrowExpandAll}}</v-icon>
@@ -393,6 +405,18 @@
                                   {{option.cooldown}}s
                                 </div>
                               </v-chip>
+                              <v-chip v-if="moves[0].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
+                                <div style="font-size: 14px !important">
+                                  <v-icon x-small class="pb-1">{{icons.mdiHandFrontLeftOutline}}</v-icon>
+                                  Melee
+                                </div>
+                              </v-chip>
+                              <v-chip v-if="moves[0].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
+                                <div style="font-size: 14px !important">
+                                  <v-icon x-small class="pb-1">{{icons.mdiBowArrow}}</v-icon>
+                                  Ranged
+                                </div>
+                              </v-chip>
                               <v-chip v-if="option.tags.includes('Area')" color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon small class="pb-1">{{icons.mdiArrowExpandAll}}</v-icon>
@@ -470,6 +494,18 @@
                           <div style="font-size: 14px !important">
                             <v-icon small class="pb-1">{{icons.mdiTimerOutline}}</v-icon>
                             {{moves[1].cooldown}}s
+                          </div>
+                        </v-chip>
+                        <v-chip v-if="moves[0].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
+                          <div style="font-size: 14px !important">
+                            <v-icon x-small class="pb-1">{{icons.mdiHandFrontLeftOutline}}</v-icon>
+                            Melee
+                          </div>
+                        </v-chip>
+                        <v-chip v-if="moves[0].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
+                          <div style="font-size: 14px !important">
+                            <v-icon x-small class="pb-1">{{icons.mdiBowArrow}}</v-icon>
+                            Ranged
                           </div>
                         </v-chip>
                         <v-chip v-if="moves[1].tags.includes('Area')" color="primary" class="mr-2" label x-small style="height: 20px">
@@ -582,6 +618,18 @@
                                   {{option.cooldown}}s
                                 </div>
                               </v-chip>
+                              <v-chip v-if="moves[0].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
+                                <div style="font-size: 14px !important">
+                                  <v-icon x-small class="pb-1">{{icons.mdiHandFrontLeftOutline}}</v-icon>
+                                  Melee
+                                </div>
+                              </v-chip>
+                              <v-chip v-if="moves[0].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
+                                <div style="font-size: 14px !important">
+                                  <v-icon x-small class="pb-1">{{icons.mdiBowArrow}}</v-icon>
+                                  Ranged
+                                </div>
+                              </v-chip>
                               <v-chip v-if="option.tags.includes('Area')" color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon small class="pb-1">{{icons.mdiArrowExpandAll}}</v-icon>
@@ -667,6 +715,8 @@ import {
   mdiOctagramOutline,
   mdiBrightness7,
   mdiDownload,
+  mdiHandFrontLeftOutline,
+  mdiBowArrow,
 } from '@mdi/js'
 
 export default {
@@ -688,6 +738,8 @@ export default {
         mdiOctagramOutline,
         mdiBrightness7,
         mdiDownload,
+        mdiHandFrontLeftOutline,
+        mdiBowArrow,
       },
       loading: false,
       builtImage: '',
@@ -711,6 +763,8 @@ export default {
         { text: 'Hindrance', value: 'Hindrance' },
         { text: 'Recovery', value: 'Recovery' },
         { text: 'Sure Hit', value: 'Sure Hit' },
+        { text: 'Melee', value: 'Melee' },
+        { text: 'Ranged', value: 'Ranged' },
       ],
       pokemonOptions: [],
       imageUrl: 'https://cdn.statically.io/gh/PokeAPI/sprites/master/sprites/pokemon/other/home/',
@@ -815,7 +869,7 @@ export default {
         height: 900, 
         windowWidth: 1600,
         windowHeight: 900,
-        scale: window.devicePixelRatio,
+        scale: Math.min(window.devicePixelRatio, 2),
         onclone: (document) => {
           document.getElementById('design').style.display = 'block'
         },
@@ -1114,5 +1168,9 @@ background: rgb(240, 240, 240) 0 292px !important;
 }
 h3 {
   margin-bottom: 4px !important;
+}
+.v-chip {
+  padding-left: 3px !important;
+  padding-right: 3px !important;
 }
 </style>
