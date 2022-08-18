@@ -815,7 +815,6 @@ export default {
         height: 900, 
         windowWidth: 1600,
         windowHeight: 900,
-        devicePixelRatio: Math.min(window.devicePixelRatio, 2),
         // optimized: false,
         // allowTaint: true,
         // foreignObjectRendering: true,
