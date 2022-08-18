@@ -67,7 +67,7 @@
                 <v-autocomplete :label="`Move ${index + 1}`" :items="pokemon.moves" outlined dense v-model="m.move" />
               </v-col>
               <v-col> 
-                <v-text-field :label="`Move ${index + 1} Cooldown`" type="number" min="1" step="1" outlined dense v-model="m.cooldown" />
+                <v-text-field :label="`Cooldown`" type="number" min="1" step="1" outlined dense v-model="m.cooldown" />
               </v-col>
             </v-row>
             <v-row dense :key="`move-${index}-tags`">
@@ -86,7 +86,7 @@
                   <v-autocomplete :label="`Move ${index+1} Option ${i+1}`" :items="pokemon.moves" outlined dense v-model="o.move" />
                 </v-col>
                 <v-col> 
-                  <v-text-field :label="`Move ${index + 1} Option ${i+1} Cooldown`" type="number" min="1" step="1" outlined dense v-model="o.cooldown" />
+                  <v-text-field :label="`Cooldown`" type="number" min="1" step="1" outlined dense v-model="o.cooldown" />
                 </v-col>
               </v-row>
               <v-row dense :key="`move-${index}-option-${i}-tags`">
@@ -104,7 +104,7 @@
           </template>
           <v-row dense>
             <v-col>
-              <v-text-field label="Unite Move Name" v-model="uniteMove.name" dense no-resize outlined :counter="50" maxlength="50" />
+              <v-text-field label="Unite Move" v-model="uniteMove.name" dense no-resize outlined :counter="50" maxlength="50" />
             </v-col>
           </v-row>
           <v-row dense>
@@ -118,7 +118,7 @@
             <v-col cols="auto">
               <v-dialog v-model="dialogOpen">
                 <template #activator="{ on, attrs }">
-                  <v-btn color="primary" @click="buildDesign" v-bind="attrs" v-on="on">Generate</v-btn>
+                  <v-btn color="primary" @click="buildDesign" v-bind="attrs" v-on="on" small>Generate</v-btn>
                 </template>
                 <v-card>
                   <div class="px-16 py-8">
@@ -142,11 +142,11 @@
                     <v-row dense>
                       <v-spacer />
                       <v-col cols="auto">
-                        <v-btn @click="dialogOpen = false; builtImage = ''">Cancel</v-btn>
+                        <v-btn @click="dialogOpen = false; builtImage = ''" small>Cancel</v-btn>
                       </v-col>
                       <v-col cols="auto">
                         <a :href="builtImage.replace('image/jpeg', 'image/octet-stream')" :download="`${pokemon.name}.jpg`">
-                          <v-btn color="primary">
+                          <v-btn color="primary" small>
                             <v-icon>{{icons.mdiDownload}}</v-icon> Download
                           </v-btn>
                         </a>
@@ -260,7 +260,7 @@
                     <v-avatar color="white" size="32" class="mr-2">
                       <v-icon>{{icons.mdiHexagonMultiple}}</v-icon>
                     </v-avatar>
-                    <h3 style="padding: none !important">Ability: {{ability.name}}</h3>
+                    <h3 style="padding: none !important">Ability: {{ability.name.value || ability.name}}</h3>
                   </v-toolbar>
                   <div style="height: 3em; font-size: 14px; line-height: 15px" class="pa-2">
                     {{ability.description}}
@@ -815,6 +815,7 @@ export default {
         height: 900, 
         windowWidth: 1600,
         windowHeight: 900,
+        devicePixelRatio: Math.min(window.devicePixelRatio, 2),
         // optimized: false,
         // allowTaint: true,
         // foreignObjectRendering: true,
@@ -822,7 +823,7 @@ export default {
           document.getElementById('design').style.display = 'block'
         },
       }).then((canvas) => {
-        this.builtImage = canvas.toDataURL('image/jpeg')
+        this.builtImage = canvas.toDataURL('image/jpeg', 1.0)
       })
     },
     onPokemonSelect() {
