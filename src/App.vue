@@ -126,7 +126,7 @@
                       <v-spacer />
                       <v-col>
                         <div style="width: 60vw; height: 33.75vw">
-                          <v-img v-if="builtImage" contain :src="builtImage" />
+                          <v-img v-if="builtImage" contain eager :src="builtImage" />
                           <v-row v-else>
                             <v-spacer />
                             <v-col cols="auto">
@@ -176,7 +176,7 @@
               <v-col cols="auto">
                 <div class="character-card-border mt-0 pa-1 elevation-4">
                   <div :class="`character-card ${role.toLowerCase()}`">
-                    <v-img :src="`${imageUrl}${pokemon.id}.png`" contain style="filter: drop-shadow(-15px 15px 2px black); margin: auto;" max-height="100%" max-width="100%" width="100%" height="100%"></v-img>
+                    <v-img :src="`${imageUrl}${pokemon.id}.png`" eager contain style="filter: drop-shadow(-15px 15px 2px black); margin: auto;" max-height="100%" max-width="100%" width="100%" height="100%"></v-img>
                   </div>
                   <div class="character-card-footer">
                     <v-row dense no-gutters>
@@ -815,9 +815,7 @@ export default {
         height: 900, 
         windowWidth: 1600,
         windowHeight: 900,
-        // optimized: false,
-        // allowTaint: true,
-        // foreignObjectRendering: true,
+        scale: window.devicePixelRatio,
         onclone: (document) => {
           document.getElementById('design').style.display = 'block'
         },
@@ -880,6 +878,9 @@ export default {
   opacity: 1.0;
   display: none;
   /* font-weight: 600 !important; */
+}
+#design * {
+  box-shadow: none !important;
 }
 .none {
   background: rgb(199, 199, 199) !important;
