@@ -405,13 +405,13 @@
                                   {{option.cooldown}}s
                                 </div>
                               </v-chip>
-                              <v-chip v-if="moves[0].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
+                              <v-chip v-if="option.tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon x-small class="pb-1">{{icons.mdiHandFrontLeftOutline}}</v-icon>
                                   Melee
                                 </div>
                               </v-chip>
-                              <v-chip v-if="moves[0].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
+                              <v-chip v-if="option.tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon x-small class="pb-1">{{icons.mdiBowArrow}}</v-icon>
                                   Ranged
@@ -496,13 +496,13 @@
                             {{moves[1].cooldown}}s
                           </div>
                         </v-chip>
-                        <v-chip v-if="moves[0].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
+                        <v-chip v-if="moves[1].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
                           <div style="font-size: 14px !important">
                             <v-icon x-small class="pb-1">{{icons.mdiHandFrontLeftOutline}}</v-icon>
                             Melee
                           </div>
                         </v-chip>
-                        <v-chip v-if="moves[0].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
+                        <v-chip v-if="moves[1].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
                           <div style="font-size: 14px !important">
                             <v-icon x-small class="pb-1">{{icons.mdiBowArrow}}</v-icon>
                             Ranged
@@ -618,13 +618,13 @@
                                   {{option.cooldown}}s
                                 </div>
                               </v-chip>
-                              <v-chip v-if="moves[0].tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
+                              <v-chip v-if="option.tags.includes('Melee')" color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon x-small class="pb-1">{{icons.mdiHandFrontLeftOutline}}</v-icon>
                                   Melee
                                 </div>
                               </v-chip>
-                              <v-chip v-if="moves[0].tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
+                              <v-chip v-if="option.tags.includes('Ranged')" color="primary" class="mr-2" label x-small style="height: 20px">
                                 <div style="font-size: 14px !important">
                                   <v-icon x-small class="pb-1">{{icons.mdiBowArrow}}</v-icon>
                                   Ranged
