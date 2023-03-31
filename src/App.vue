@@ -878,6 +878,11 @@ export default {
       })
     },
     onPokemonSelect() {
+      axios.get(`https://cdn.statically.io/gh/PokeAPI/sprites/master/sprites/pokemon/other/home/${this.pokemon.id}.png`).then(() => {
+        this.imageUrl = 'https://cdn.statically.io/gh/PokeAPI/sprites/master/sprites/pokemon/other/home/';
+      }).catch(() => {
+        this.imageUrl = 'https://cdn.statically.io/gh/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+      });
       axios.get(`https://cdn.statically.io/gh/matt1484/pokemon-unite-designer/master/public/data/pokemon/${this.pokemon.id}.json`).then((resp) => {
         resp.data.abilities = resp.data.abilities.map((ab) => { return { value: ab, text: ab }})
         resp.data.moves = resp.data.moves.map((mv) => { return { value: mv, text: mv.name }})
