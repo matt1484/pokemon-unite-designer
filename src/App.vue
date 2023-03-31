@@ -851,7 +851,7 @@ export default {
     } 
   },
   created() {
-    axios.get('https://cdn.statically.io/gh/matt1484/pokemon-unite-designer/master/public/data/all-pokemon.json').then((resp) => {
+    axios.get('https://raw.githubusercontent.com/matt1484/pokemon-unite-designer/master/public/data/all-pokemon.json').then((resp) => {
       this.pokemonOptions = resp.data.map((pkmn) => {
         return {
           value: pkmn.id,
@@ -883,7 +883,7 @@ export default {
       }).catch(() => {
         this.imageUrl = 'https://cdn.statically.io/gh/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
       });
-      axios.get(`https://cdn.statically.io/gh/matt1484/pokemon-unite-designer/master/public/data/pokemon/${this.pokemon.id}.json`).then((resp) => {
+      axios.get(`https://raw.githubusercontent.com/matt1484/pokemon-unite-designer/master/public/data/pokemon/${this.pokemon.id}.json`).then((resp) => {
         resp.data.abilities = resp.data.abilities.map((ab) => { return { value: ab, text: ab }})
         resp.data.moves = resp.data.moves.map((mv) => { return { value: mv, text: mv.name }})
         this.pokemon = resp.data
