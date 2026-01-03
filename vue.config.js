@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? 'https://raw.githubusercontent.com/matt1484/pokemon-unite-designer/refs/heads/master/docs' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
   devServer: {
     host: '127.0.0.1',
   }
